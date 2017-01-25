@@ -29,10 +29,10 @@ function get_intermediate_rod (departure_rod, destination_rod) {
 }
 
 function move (departure_rod, destination_rod) {
-    // ранее описанные действия по перекладыванию диска будем выполнять только если это разрешено правилами
+    // действия по перекладыванию диска будем выполнять только если это разрешено правилами
     if (is_move_possible(departure_rod, destination_rod)) {
-        top_disk = hanoi_2[departure_rod].shift() // снимаем диск сверху со стержня departure_rod
-        hanoi_2[destination_rod].unshift(top_disk) // кладём его сверху на стержень destination_rod
+        top_disk = hanoi[departure_rod].shift() // снимаем диск сверху со стержня departure_rod
+        hanoi[destination_rod].unshift(top_disk) // кладём его сверху на стержень destination_rod
     }
 }
 

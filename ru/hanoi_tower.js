@@ -1,4 +1,8 @@
-function is_move_possible (departure_rod, destination_rod) {
+function is_move_possible (departure_rod_index, destination_rod_index) {
+    // сами списки дисков на стержнях мы можем получить по их индексам
+    departure_rod = hanoi[departure_rod_index]
+    destination_rod = hanoi[destination_rod_index]
+
     // вот здесь добавляем ещё одну отладку:
     console.log('is_move_possible debug information:')
     console.log('departure_rod:', departure_rod)
@@ -24,55 +28,56 @@ function is_move_possible (departure_rod, destination_rod) {
     return destination_rod[0] > departure_rod[0];
 }
 
-function get_intermediate_rod (departure_rod, destination_rod) {
+function get_intermediate_rod_index (departure_rod_index, destination_rod_index) {
     // исходный массив стержней — просто три цифры
-    all_rods = [0, 1, 2]
+    all_rods_indexes = [0, 1, 2]
     
     // отфильтруем departure_rod встроенной функцией
-    rods_without_departure = all_rods.filter(function (rod) { return rod != departure_rod })
+    rod_indexess_without_departure = all_rods_indexes.filter(function (rod) { return rod != departure_rod })
     
     // отфильтруем destination_rod встроенной функцией
-    only_one_rod_left = rods_without_departure.filter(function (rod) { return rod != destination_rod })
+    only_one_rod_index_left = rod_indexess_without_departure.filter(function (rod) { return rod != destination_rod })
     
     // в all_rods должен к этому моменту остаться только один элемент,
     // его и вернём как номер промежуточного стержня:
-    return only_one_rod_left[0]
+    return only_one_rod_index_left[0]
 }
 
-function move (departure_rod, destination_rod) {
+function move (departure_rod_index, destination_rod_index) {
     // действия по перекладыванию диска будем выполнять только если это разрешено правилами
-    if (is_move_possible(departure_rod, destination_rod)) {
-        console.log('moving from',  departure_rod, 'to', destination_rod, 'on state', JSON.stringify(hanoi))
-        top_disk = hanoi[departure_rod].shift() // снимаем диск сверху со стержня departure_rod
+    if (is_move_possible(departure_rod_index, destination_rod_index)) {
+        console.log('moving from',  departure_rod_index, 'to', destination_rod_index, 'on state', JSON.stringify(hanoi))
+        top_disk = hanoi[departure_rod_index].shift() // снимаем диск сверху со стержня departure_rod
         console.log('top disk is', top_disk)
-        hanoi[destination_rod].unshift(top_disk) // кладём его сверху на стержень destination_rod
+        hanoi[destination_rod_index].unshift(top_disk) // кладём его сверху на стержень destination_rod
         console.log('result state is', JSON.stringify(hanoi))
     } else {
-        console.log('move',  departure_rod, destination_rod, 'on', JSON.stringify(hanoi), 'is considered impossible')
+        console.log('move',  departure_rod_index, destination_rod_index, 'on', JSON.stringify(hanoi), 'is considered impossible')
     }
 }
 
-function solve_hanoi (N, departure_rod, destination_rod) {
-    console.log('solve_hanoi for N = ', N, 'departure_rod = ', departure_rod, 'destination_rod = ', destination_rod)
+function solve_hanoi (N, departure_rod_index, destination_rod_index) {
+    console.log('solve_hanoi for N = ', N, 'departure_rod_index = ',
+                departure_rod_index, 'destination_rod_index = ', destination_rod_index)
     if (N == 1) {
         console.log('we are in the branch N == 1')
         // просто перекладываем один диск
-        move(departure_rod, destination_rod);
+        move(departure_rod_index, destination_rod_index);
     }
     // для всех N > 1
     else {
         console.log('we are in the branch N > 1')
         // определим, какой стержень остался для промежуточных действий,
         // учитывая указанные исходный и целевой стержни
-        intermediate_rod = get_intermediate_rod(departure_rod, destination_rod)
+        intermediate_rod_index = get_intermediate_rod_index(departure_rod_index, destination_rod_index)
 
         // перекладываем верхнюю пирамидку из 2 дисков на промежуточный стержень
-        solve_hanoi(N - 1, departure_rod, intermediate_rod)
+        solve_hanoi(N - 1, departure_rod_index, intermediate_rod_index)
         
         // перекладываем самый большой диск на целевой стержень
-        move(departure_rod, destination_rod)
+        move(departure_rod_index, destination_rod_index)
         
         // пирамидку с промежуточного стержня перекладываем на целевой
-        solve_hanoi(N - 1, intermediate_rod, destination_rod)
+        solve_hanoi(N - 1, intermediate_rod_index, destination_rod_index)
     }
 }

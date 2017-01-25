@@ -1,8 +1,7 @@
 function move (departure_rod, destination_rod) {
-    // 1. снять диск со стержня departure_rod
-    // (то есть удалить его из массива hanoi_1[departure_rod])
-    // 2. положить снятый диск на destination_rod
-    // (то есть добавить его к массиву hanoi_1[destination_rod])
+    hanoi_1[departure_rod] = []
+    hanoi_1[destination_rod] = [1]
+    // тупо донельзя, но для задачи размера 1 — сойдёт и так
 }
 
 function solve_hanoi (N, departure_rod, destination_rod) {

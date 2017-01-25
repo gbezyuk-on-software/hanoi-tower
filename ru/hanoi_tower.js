@@ -1,4 +1,11 @@
 function is_move_possible (departure_rod, destination_rod) {
+    // вот здесь добавляем ещё одну отладку:
+    console.log('is_move_possible debug information:')
+    console.log('departure_rod:', departure_rod)
+    console.log('departure_rod.length:', departure_rod.length)
+    console.log('destination_rod:', destination_rod)
+    console.log('destination_rod.length:', destination_rod.length)
+
     if (departure_rod.length == 0) {
         console.log('move is impossible because the departure rod is empty')
         // если исходный стержень пуст, перекладывать нечего — ход запрещён

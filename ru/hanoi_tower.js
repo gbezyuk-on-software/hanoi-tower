@@ -29,17 +29,23 @@ function is_move_possible (departure_rod_index, destination_rod_index) {
 }
 
 function get_intermediate_rod_index (departure_rod_index, destination_rod_index) {
+    console.log('we are now inside get_intermediate_rod_index with params', departure_rod_index, destination_rod_index)
+
     // исходный массив стержней — просто три цифры
     all_rods_indexes = [0, 1, 2]
+    console.log('all_rods_indexes', all_rods_indexes)
     
     // отфильтруем departure_rod встроенной функцией
-    rod_indexess_without_departure = all_rods_indexes.filter(function (rod) { return rod != departure_rod })
+    rod_indexess_without_departure = all_rods_indexes.filter(function (rod_index) { return rod_index != departure_rod_index })
+    console.log('rod_indexess_without_departure', rod_indexess_without_departure)
     
     // отфильтруем destination_rod встроенной функцией
-    only_one_rod_index_left = rod_indexess_without_departure.filter(function (rod) { return rod != destination_rod })
+    only_one_rod_index_left = rod_indexess_without_departure.filter(function (rod_index) { return rod_index != destination_rod_index })
+    console.log('only_one_rod_index_left', only_one_rod_index_left)
     
     // в all_rods должен к этому моменту остаться только один элемент,
     // его и вернём как номер промежуточного стержня:
+    console.log('expected to be returned:', only_one_rod_index_left[0])
     return only_one_rod_index_left[0]
 }
 

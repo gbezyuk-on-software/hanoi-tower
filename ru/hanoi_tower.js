@@ -1,7 +1,7 @@
 function is_move_possible (departure_rod_index, destination_rod_index) {
     // сами списки дисков на стержнях мы можем получить по их индексам
-    departure_rod = hanoi[departure_rod_index]
-    destination_rod = hanoi[destination_rod_index]
+    var departure_rod = hanoi[departure_rod_index]
+    var destination_rod = hanoi[destination_rod_index]
 
     // вот здесь добавляем ещё одну отладку:
     // console.log('is_move_possible debug information:')
@@ -32,15 +32,15 @@ function get_intermediate_rod_index (departure_rod_index, destination_rod_index)
     // console.log('we are now inside get_intermediate_rod_index with params', departure_rod_index, destination_rod_index)
 
     // исходный массив стержней — просто три цифры
-    all_rods_indexes = [0, 1, 2]
+    var all_rods_indexes = [0, 1, 2]
     // console.log('all_rods_indexes', all_rods_indexes)
     
     // отфильтруем departure_rod встроенной функцией
-    rod_indexess_without_departure = all_rods_indexes.filter(function (rod_index) { return rod_index != departure_rod_index })
+    var rod_indexess_without_departure = all_rods_indexes.filter(function (rod_index) { return rod_index != departure_rod_index })
     // console.log('rod_indexess_without_departure', rod_indexess_without_departure)
     
     // отфильтруем destination_rod встроенной функцией
-    only_one_rod_index_left = rod_indexess_without_departure.filter(function (rod_index) { return rod_index != destination_rod_index })
+    var only_one_rod_index_left = rod_indexess_without_departure.filter(function (rod_index) { return rod_index != destination_rod_index })
     // console.log('only_one_rod_index_left', only_one_rod_index_left)
     
     // в all_rods должен к этому моменту остаться только один элемент,
@@ -53,7 +53,7 @@ function move (departure_rod_index, destination_rod_index) {
     // действия по перекладыванию диска будем выполнять только если это разрешено правилами
     if (is_move_possible(departure_rod_index, destination_rod_index)) {
         console.log('moving from',  departure_rod_index, 'to', destination_rod_index, 'on state', JSON.stringify(hanoi))
-        top_disk = hanoi[departure_rod_index].shift() // снимаем диск сверху со стержня departure_rod
+        var top_disk = hanoi[departure_rod_index].shift() // снимаем диск сверху со стержня departure_rod
         console.log('top disk is', top_disk)
         hanoi[destination_rod_index].unshift(top_disk) // кладём его сверху на стержень destination_rod
         console.log('result state is', JSON.stringify(hanoi))

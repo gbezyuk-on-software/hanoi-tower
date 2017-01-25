@@ -41,6 +41,7 @@ function solve_hanoi (N, departure_rod, destination_rod) {
         // просто перекладываем один диск
         move(departure_rod, destination_rod);
     }
+
     if (N == 2) {
         // определим, какой стержень остался для промежуточных действий,
         // учитывая указанные исходный и целевой стержни
@@ -54,5 +55,20 @@ function solve_hanoi (N, departure_rod, destination_rod) {
         
         // маленький диск с промежуточного стержня перекладываем на целевой
         move(intermediate_rod, destination_rod)
+    }
+
+    if (N == 3) {
+        // определим, какой стержень остался для промежуточных действий,
+        // учитывая указанные исходный и целевой стержни
+        intermediate_rod = get_intermediate_rod(departure_rod, destination_rod)
+
+        // перекладываем верхнюю пирамидку из 2 дисков на промежуточный стержень
+        solve_hanoi(2, departure_rod, intermediate_rod)
+        
+        // перекладываем самый большой диск на целевой стержень
+        move(departure_rod, destination_rod)
+        
+        // пирамидку с промежуточного стержня перекладываем на целевой
+        solve_hanoi(2, intermediate_rod, destination_rod)
     }
 }

@@ -75,7 +75,8 @@ function solve_hanoi (N, departure_rod_index, destination_rod_index) {
         console.log('we are in the branch N > 1')
         // определим, какой стержень остался для промежуточных действий,
         // учитывая указанные исходный и целевой стержни
-        intermediate_rod_index = get_intermediate_rod_index(departure_rod_index, destination_rod_index)
+        // ВОТ ЗДЕСЬ добавилось ключевое слово var
+        var intermediate_rod_index = get_intermediate_rod_index(departure_rod_index, destination_rod_index)
 
         // перекладываем верхнюю пирамидку из 2 дисков на промежуточный стержень
         solve_hanoi(N - 1, departure_rod_index, intermediate_rod_index)

@@ -1,15 +1,19 @@
 function is_move_possible (departure_rod, destination_rod) {
     if (departure_rod.length == 0) {
+        console.log('move is impossible because the departure rod is empty')
         // если исходный стержень пуст, перекладывать нечего — ход запрещён
         return false;
     }
     // до этой точки в коде мы дойдём только если исходный стержень не пуст
     if (destination_rod.length == 0) {
+        console.log('move is possible because the destination rod is empty')
         // если целевой стержень пуст, а перекладывать есть что — ход вполне неплох!
         return true;
     }
     // до этой точки мы дойдём только если как исходный, так и целевой стержни не пусты
     // ход возможен, если на целевом стержне верхний диск больше (по номеру), чем на исходном
+    console.log('move is', destination_rod[0] > departure_rod[0] ? 'possible' : 'impossible',
+                'because destination_rod[0] > departure_rod[0] is', destination_rod[0] > departure_rod[0])
     return destination_rod[0] > departure_rod[0];
 }
 

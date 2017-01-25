@@ -11,12 +11,12 @@
     <script type="text/javascript">
         console.log("Решение Головоломки \"Ханойская Башня\" для случая с четырьмя дисками (N == 4); отладка")
 
-        hanoi = [[1, 2, 3, 4], [], []]
+        hanoi = [[1, 2, 3, 4, 5], [], []]
 
         console.log("начальное состояние:", JSON.stringify(hanoi));
 
         console.log("решаем...");
-        solve_hanoi(4, 0, 2);
+        solve_hanoi(5, 0, 2);
         console.log("вроде решили...");
 
         console.log("состояние после решения:", JSON.stringify(hanoi));

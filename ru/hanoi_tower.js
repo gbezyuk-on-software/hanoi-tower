@@ -1,7 +1,7 @@
-function is_move_possible (departure_rod_index, destination_rod_index) {
+function is_move_possible (disks, departure_rod_index, destination_rod_index) {
     // сами списки дисков на стержнях мы можем получить по их индексам
-    var departure_rod = hanoi[departure_rod_index]
-    var destination_rod = hanoi[destination_rod_index]
+    var departure_rod = disks[departure_rod_index]
+    var destination_rod = disks[destination_rod_index]
 
     // вот здесь добавляем ещё одну отладку:
     // console.log('is_move_possible debug information:')
@@ -49,26 +49,26 @@ function get_intermediate_rod_index (departure_rod_index, destination_rod_index)
     return only_one_rod_index_left[0]
 }
 
-function move (departure_rod_index, destination_rod_index) {
+function move (disks, departure_rod_index, destination_rod_index) {
     // действия по перекладыванию диска будем выполнять только если это разрешено правилами
-    if (is_move_possible(departure_rod_index, destination_rod_index)) {
-        console.log('moving from',  departure_rod_index, 'to', destination_rod_index, 'on state', JSON.stringify(hanoi))
-        var top_disk = hanoi[departure_rod_index].shift() // снимаем диск сверху со стержня departure_rod
+    if (is_move_possible(disks, departure_rod_index, destination_rod_index)) {
+        console.log('moving from',  departure_rod_index, 'to', destination_rod_index, 'on state', JSON.stringify(disks))
+        var top_disk = disks[departure_rod_index].shift() // снимаем диск сверху со стержня departure_rod
         console.log('top disk is', top_disk)
-        hanoi[destination_rod_index].unshift(top_disk) // кладём его сверху на стержень destination_rod
-        console.log('result state is', JSON.stringify(hanoi))
+        disks[destination_rod_index].unshift(top_disk) // кладём его сверху на стержень destination_rod
+        console.log('result state is', JSON.stringify(disks))
     } else {
-        console.log('move',  departure_rod_index, destination_rod_index, 'on', JSON.stringify(hanoi), 'is considered impossible')
+        console.log('move',  departure_rod_index, destination_rod_index, 'on', JSON.stringify(disks), 'is considered impossible')
     }
 }
 
-function solve_hanoi (N, departure_rod_index, destination_rod_index) {
+function solve_hanoi (disks, N, departure_rod_index, destination_rod_index) {
     console.log('solve_hanoi for N = ', N, 'departure_rod_index = ',
                 departure_rod_index, 'destination_rod_index = ', destination_rod_index)
     if (N == 1) {
         console.log('we are in the branch N == 1')
         // просто перекладываем один диск
-        move(departure_rod_index, destination_rod_index);
+        move(disks, departure_rod_index, destination_rod_index);
     }
     // для всех N > 1
     else {
@@ -79,12 +79,12 @@ function solve_hanoi (N, departure_rod_index, destination_rod_index) {
         var intermediate_rod_index = get_intermediate_rod_index(departure_rod_index, destination_rod_index)
 
         // перекладываем верхнюю пирамидку из 2 дисков на промежуточный стержень
-        solve_hanoi(N - 1, departure_rod_index, intermediate_rod_index)
+        solve_hanoi(disks, N - 1, departure_rod_index, intermediate_rod_index)
         
         // перекладываем самый большой диск на целевой стержень
-        move(departure_rod_index, destination_rod_index)
+        move(disks, departure_rod_index, destination_rod_index)
         
         // пирамидку с промежуточного стержня перекладываем на целевой
-        solve_hanoi(N - 1, intermediate_rod_index, destination_rod_index)
+        solve_hanoi(disks, N - 1, intermediate_rod_index, destination_rod_index)
     }
 }

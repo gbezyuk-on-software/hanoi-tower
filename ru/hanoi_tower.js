@@ -31,18 +31,26 @@ function get_intermediate_rod (departure_rod, destination_rod) {
 function move (departure_rod, destination_rod) {
     // действия по перекладыванию диска будем выполнять только если это разрешено правилами
     if (is_move_possible(departure_rod, destination_rod)) {
+        console.log('moving from',  departure_rod, 'to', destination_rod, 'on state', JSON.stringify(hanoi))
         top_disk = hanoi[departure_rod].shift() // снимаем диск сверху со стержня departure_rod
+        console.log('top disk is', top_disk)
         hanoi[destination_rod].unshift(top_disk) // кладём его сверху на стержень destination_rod
+        console.log('result state is', JSON.stringify(hanoi))
+    } else {
+        console.log('move',  departure_rod, destination_rod, 'on', JSON.stringify(hanoi), 'is considered impossible')
     }
 }
 
 function solve_hanoi (N, departure_rod, destination_rod) {
+    console.log('solve_hanoi for N = ', N, 'departure_rod = ', departure_rod, 'destination_rod = ', destination_rod)
     if (N == 1) {
+        console.log('we are in the branch N == 1')
         // просто перекладываем один диск
         move(departure_rod, destination_rod);
     }
     // для всех N > 1
     else {
+        console.log('we are in the branch N > 1')
         // определим, какой стержень остался для промежуточных действий,
         // учитывая указанные исходный и целевой стержни
         intermediate_rod = get_intermediate_rod(departure_rod, destination_rod)

@@ -1,7 +1,6 @@
 function move (departure_rod, destination_rod) {
-    hanoi_1[departure_rod] = []
-    hanoi_1[destination_rod] = [1]
-    // тупо донельзя, но для задачи размера 1 — сойдёт и так
+    top_disk = hanoi_2[departure_rod].shift() // снимаем диск сверху со стержня departure_rod
+    hanoi_2[destination_rod].unshift(top_disk) // кладём его сверху на стержень destination_rod
 }
 
 function solve_hanoi (N, departure_rod, destination_rod) {
